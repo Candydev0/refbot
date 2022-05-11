@@ -467,7 +467,6 @@ bot.telegram.setWebhook(url);
 app.get('/refbot/', (req, res) => res.send('i am out of world!'));
 app.get('/refbot/mysql/', (req, res) =>{
   res.send(dat);
-  });
 });
 app.use(bot.webhookCallback("/refbot/"));
 app.listen(8080,()=>{});
