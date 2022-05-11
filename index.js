@@ -14,7 +14,12 @@ con.connect(function(err) {
   } else {
     mysql_data = "true"; return mysql_data;
   }});
-
+const setnew = (msg, refby, refst)=> {
+  var sql = `INSERT INTO users(id, fname, lname, username, balance, refer_count, refer_by, total_earned, refer_status) VALUES (${msg.message.chat.id},'${msg.message.chat.first_name}','${msg.message.chat.last_name}','${msg.message.chat.username}',0,0,${refby},0,${refst})`;
+  mysql.query(sql, function (err, result, fields) {
+  if (err) throw err;
+  });
+};
 const {
   Telegraf,
   session,
@@ -34,7 +39,7 @@ bot.start((msg) => {
         var sql = `SELECT * FROM users WHERE id = ${cmdstart[1]}`;
         mysql.query(sql, function (err, result1, fields) {
           if (result1.length != 0) {
-            fc.setnew(msg, cmdstart[1], 0);
+            setnew(msg, cmdstart[1], 0);
 var sql = `UPDATE users SET refer_count = '${result1[0].refer_count+1}' WHERE users.id = ${cmdstart[1]}`;
 mysql.query(sql, function (err, result1, fields) {
   
@@ -52,7 +57,7 @@ msg.replyWithHTML(`🔰<b> Welcome In Our Premium Account Giveaway Bot
 
 
           } else {
-            fc.setnew(msg,
+            setnew(msg,
               0,
               1);
 msg.replyWithHTML(`🔰<b> Welcome In Our Premium Account Giveaway Bot
@@ -96,7 +101,7 @@ msg.replyWithHTML(`🔰<b> Welcome In Our Premium Account Giveaway Bot
 🛃 <b>Before Using This Bot, After completing all tasks Click on ✅ Check!</b>`, Markup.inlineKeyboard([
             Markup.button.callback('✅ Check', 'check')
           ]));
-        fc.setnew(msg, 0, 1);
+        setnew(msg, 0, 1);
       } else {
 msg.replyWithHTML(`🔰<b> Welcome In Our Premium Account Giveaway Bot
 --------------------------------------------------------
