@@ -448,6 +448,12 @@ mysql.query(sql,
 });
 bot.telegram.setWebhook(url);
 app.get('/refbot/', (req, res) => res.send('i am out of world!'));
-app.get('/refbot/my/', (req, res) => res.send("hi ".mysql));
+app.get('/refbot/my/', (req, res) =>{
+  mysql.ping((err) => {
+    if(err) return res.status(500).send("MySQL Server is Down");
+      
+    res.send("MySQL Server is Active");
+  });
+});
 app.use(bot.webhookCallback("/refbot/"));
 app.listen(8080,()=>{});
