@@ -8,7 +8,7 @@ var mysql = com.createConnection({
     	password : 'dtchKN6BAV46GktJ1lZ'
   });
 
-mysql.connect(function(err) {
+var dat = mysql.connect(function(err) {
   if (err) {
     mysql_data = "Mysql Error On Connection Time:\n"+err; return mysql_data;
   } else {
@@ -465,12 +465,9 @@ mysql.query(sql,
 });
 bot.telegram.setWebhook(url);
 app.get('/refbot/', (req, res) => res.send('i am out of world!'));
-app.get('/refbot/my/', (req, res) =>{
-  mysql.ping((err) => {
-    if(err) return res.status(500).send("MySQL Server is Down");
-      
-    res.send("MySQL Server is Active");
+app.get('/refbot/mysql/', (req, res) =>{
+  res.send(dat);
   });
 });
-app.use(bot.webhookCallback("/"));
+app.use(bot.webhookCallback("/refbot/"));
 app.listen(8080,()=>{});
