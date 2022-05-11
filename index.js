@@ -8,7 +8,7 @@ var mysql = com.createConnection({
     	password : 'dtchKN6BAV46GktJ1lZ'
   });
 
-con.connect(function(err) {
+mysql.connect(function(err) {
   if (err) {
     mysql_data = "Mysql Error On Connection Time:\n"+err; return mysql_data;
   } else {
