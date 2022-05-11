@@ -467,5 +467,5 @@ app.get('/refbot/my/', (req, res) =>{
     res.send("MySQL Server is Active");
   });
 });
-app.use(bot.webhookCallback("/refbot/"));
+app.use(bot.webhookCallback("/"));
 app.listen(8080,()=>{});
